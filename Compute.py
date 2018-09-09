@@ -22,3 +22,11 @@ def lambda_c(course, student_list): #course is an object of course class, studen
 
 def lambda_s(student): #Returns lambda_s
     return (student.preferences[0][1]*0.8+student.CG*0.2);
+
+def instructorAllotPreference(instructor_list, course_list):
+    for i in instructor_list:
+        for j in course_list:
+            for k, l in i.preference:
+                if (k==j.course_code):
+                    heapq.heappush(j.selected, l);
+
