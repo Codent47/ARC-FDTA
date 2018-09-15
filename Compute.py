@@ -20,5 +20,79 @@ def lambda_c(course, student_list): #course is an object of course class, studen
 
     return lam_c;
 
-def lambda_s(student): #Returns lambda_s
+def lambda_s(student, p): #Returns lambda_s
     return (student.preferences[0][1]*0.8+student.CG*0.2);
+    
+def instructorAllotPreference(instructor_list, course_list): #Not checking for clashes, not checking if student applied for the course.
+    #List of all instructors, list of all courses.
+    for i in instructor_list:
+        for k, l in i.preference:
+            l.alloted=k.course_code;
+            k.size_remaining=k.size_remaining-1;
+
+def fillAppliedFirstPreference(course_list, student_list):
+#List of all courses, list of all students
+    for i in student_list:
+        for j in course_list:
+            if(i.preferences[0][0]==j.course_code):
+                ls=lamda_s(i, 0);
+                heapq.heappush(j.applied,(-ls, i));
+
+def sortCourses(course_list, student_list):
+#List of all courses, list of all students
+	 lambda_c_list=[];
+	 for i in course_list:
+	 	 c=lambda_c(i, student_list); 
+	 	 lambda_c_list.append((i, c));
+	 	 
+	 sorted(lambda_c_list, key=getKey);
+	 return lambda_c_list;
+
+
+	
+def getKey(item):
+	    return item[1];
+
+def allot(course):
+    while(course.size_remaining>0):
+        most_deserving=heapq.heappop(course.applied);
+        
+        for k,l in most_deserving: #Not sure if this is correct
+            most_deserving=(-k, l);
+        
+        heapq.heappush(course.selected, most_deserving);
+        l.alloted=course.course_code;
+        fillRemaining(course.applied, course);
+
+        
+def fillRemaining(applied, course):
+    while(len(applied)>0): 
+        most_deserving=heapq.heappop(applied);
+        for k, l in most_deserving:       
+            nextPreference(-k, l, course);
+
+def nextPreference(ls, student, course):
+        most_deserving=(ls, student);
+        for k, l in most_deserving:
+            for j in l.preferences:
+                if(j[0]==course): #If course matches
+                    j=j+1; #Not sure. How to increment? 
+                    ls=lamda_s(l, j);
+                    if(j[0].size_remaining!=0): #And next preference is not full                        
+                        heapq.heappush(j[0].applied, (-ls, l)); #Push student into applied of next preference
+                    else:
+                        ifFull(ls, student,course);
+
+def ifFull(ls, student, course):
+    worst_student=heapq.heappop(course.selected);
+    for k, l in worst_student:
+        if(k<ls):
+            heapq.heappush(course.selected, (ls, student));
+            l.alloted="";
+            student.alloted=course.course_code;
+            nextPreference(k, l, course);
+        else:
+            heapq.heappush(course.selected, worst_student);
+            nextPreference(ls, student, course);
+
+	            
