@@ -11,3 +11,6 @@ class Student:
 
     def getAllotedCourse():
     	return self.alloted
+
+    def getPreferences():
+    	return self.preferences
