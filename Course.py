@@ -11,6 +11,9 @@ class Course:
 	def addtoApplied(student,lambda_s):
 		heappush(self.applied,{-lambda_s,student})
 
+	def popApplied():
+		return heappop(applied)
+
 	def appliedRemaining():
 		return length(self.applied)>0
 
@@ -27,8 +30,8 @@ class Course:
 	def getWorstSelected():
 		return selected[0]
 
-	def popWorsrSelected():
-		heappop(selected)
+	def popWorstSelected():
+		return heappop(selected)
 
 
 
