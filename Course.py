@@ -22,6 +22,7 @@ class Course:
 
 	def allot(student,lambda_s):
 		heappush(self.selected,{lambda_s,student})
+		decrementSize()
 	
 	def getWorstSelected():
 		return selected[0]
