@@ -14,3 +14,8 @@ class Student:
 
     def getPreferences():
     	return self.preferences
+
+    def getCG():
+    	return self.CG
+
+
