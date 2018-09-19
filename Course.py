@@ -9,7 +9,7 @@ class Course:
 		self.applied=applied
 
 	def addtoApplied(student,lambda_s):
-		heappush(self.applied,{-lambda_s,student})
+		heappush(self.applied,(-lambda_s,student))
 
 	def popApplied():
 		return heappop(applied)
@@ -20,21 +20,19 @@ class Course:
 	def decrementSize():
 		self.size_remaining-=1
 
-	def isFull():
-		return size_remaining==0
-
 	def allot(student,lambda_s):
-		heappush(self.selected,{lambda_s,student})
+		heappush(self.selected,(lambda_s,student))
 		decrementSize()
 	
 	def getWorstSelected():
 		return selected[0]
 
 	def popWorstSelected():
+		self.size_remaining-=1
 		return heappop(selected)
 
+	def getCourseCode():
+		return self.course_code
 
-
-
-
-	
+	def getSizeRemaining():
+		return self.size_remaining
