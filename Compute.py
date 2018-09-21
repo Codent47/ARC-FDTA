@@ -1,7 +1,8 @@
-import Course
-import Instructor
-import Student
+from Course import *
+from Student import *
+from Instructor import *
 import operator
+import pandas as pd
 #Returns lambda_c for a single course
 def lambda_c(course, student_list): #course is an object of course class, student_list is a list of Students
     c1=0
@@ -98,3 +99,21 @@ def ifFull(ls, student, course):
             nextPreference(k, l, course)
         else:
             nextPreference(ls, student, course)
+
+df=pd.read_csv('Course.csv')
+course_list=[]
+course_code_dict={}
+for index, row in df.iterrows():
+    c=Course(row['course_code'],row['Size-remaining'])
+    course_list.append(c)
+    course_code_dict[c.getCourseCode()]=c
+
+df=pd.read_csv('Student.csv')
+student_list=[]
+student_id_dict={}
+for index, row in df.iterrows():
+    prefs=[(row['Course1'],row['Grade1']),(row['Course2'],row['Grade2']),(row['Course3'],row['Grade3']),(row['Course4'],row['Grade4']),(row['Course5'],row['Grade5'])]
+    s=Student(row['ID'],prefs,"None",row['CG'])
+    student_list.append(s)
+    student_id_dict[s.getID()]=s
+
