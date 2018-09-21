@@ -6,16 +6,18 @@ class Student:
         self.alloted=alloted
         self.CG=CG
 
-    def allotCourse(alloted):
+    def allotCourse(self, alloted):
     	self.alloted=alloted
 
-    def getAllotedCourse():
+    def getAllotedCourse(self):
     	return self.alloted
 
-    def getPreferences():
+    def getPreferences(self):
     	return self.preferences
 
-    def getCG():
+    def getCG(self):
     	return self.CG
 
+    def getID(self):
+    	return self.ID
 
