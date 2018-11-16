@@ -13,6 +13,10 @@ class Course:
 		for x in self.applied:
 			print(x[1].getID())
 
+	def printSelected(self):
+		for x in self.selected:
+			print(x[1].getID())
+
 	def popApplied(self):
 		return heappop(self.applied)
 
